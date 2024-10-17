@@ -3,7 +3,7 @@ import { Given, When } from "@badeball/cypress-cucumber-preprocessor";
 
 const url = "https://www.webdriveruniversity.com/";
 
-Given(`I navigate to the WebdriverUniversity homepage`, () => {
+Given('I navigate to the WebdriverUniversity homepage', () => {
     cy.visit(url);
 })
 
