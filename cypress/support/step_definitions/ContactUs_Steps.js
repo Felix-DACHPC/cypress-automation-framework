@@ -1,61 +1,72 @@
 /// <reference types="cypress" />
-import { Then, When } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, Then, When } from "@badeball/cypress-cucumber-preprocessor";
+import Contact_Us_PO from "../page_objects/Contact_Us_PO";
 
+const contactus_Page = new Contact_Us_PO;
+
+Given('I navigate to the Contact Us homepage', () => {
+    contactus_Page.navigateTo_ContactUs_Page();
+})
 
 When('I type a first name', () => {
-    cy.get('[name="first_name"]').type('Felix');
+    contactus_Page.type_FirstName("Felix");
 })
 
 When('I type a last name', () => {
-    cy.get('[name="last_name"]').type('Rühl');
+    //cy.get('[name="last_name"]').type('Rühl');
+    contactus_Page.type_LastName('Rühl')
 })
 
 When('I enter an email adress', () => {
-    cy.get('[name="email"]').type('example@example.com');
+    contactus_Page.type_emailAddress('example@example.com');
+    //cy.get('[name="email"]').type('example@example.com');
 })
 
 When('I type a comment', () => {
-    cy.get('textarea[name="message"]').type('Hello World')
+    //cy.get('textarea[name="message"]').type('Hello World')
+    contactus_Page.type_Comment('Hello World');
 })
 
 When('I click on the submit button', () => {
-    cy.get('[type="submit"]').click();
+    //cy.get('[type="submit"]').click();
+    contactus_Page.clickON_Submit_Button();
 })
 
 When('I type a specific first name {string}', (firstName) => {
-    cy.get('[name="first_name"]').type(firstName);
+    contactus_Page.type_FirstName(firstName);
 })
 
 When('I type a specific last name {string}', (lastName) => {
-    cy.get('[name="last_name"]').type(lastName);
+    contactus_Page.type_LastName(lastName);
 })
 
 When('I type a specific email address {string}', (email) => {
-    cy.get('[name="email"]').type(email);
+    contactus_Page.type_emailAddress(email);
 })
 
 When('I type a specific word {string} and number {int} within the comment input field', (word, number) => {
-    cy.get('textarea[name="message"]').type(word + ' ' + number);
+    contactus_Page.type_Comment(word + number);
 })
 
 When('I type a first name {word} and a last name {string}', (firstName, lastName) => {
-    cy.get('[name="first_name"]').type(firstName);
-    cy.get('[name="last_name"]').type(lastName);
+    contactus_Page.type_FirstName(firstName);
+    contactus_Page.type_LastName(lastName);
 })
 
 When('I type a {string} and a comment {string}', (email, comment) => {
-    cy.get('[name="email"]').type(email);
-    cy.get('textarea[name="message"]').type(comment);
+    contactus_Page.type_emailAddress(email);
+    contactus_Page.type_Comment(comment);
 })
 
 Then('I should be presented with a successful contact us submission message', () => {
-    cy.get('h1').should('have.text', 'Thank You for your Message!');
+
+    contactus_Page.validate_Submission_Header("Thank You for your Message!")
 })
 
 Then('I should be presented with an unsuccessful contact us submission message', () => {
-    cy.get('body').contains('Error: Invalid email address');
+    contactus_Page.validate_Submission_Header("Error: Invalid email address");
 })
 
 Then('I should be presented with header text {string}', (message) => {
-    cy.xpath("//h1 | //body").contains(message);
+    contactus_Page.validate_Submission_Header(message);
 })

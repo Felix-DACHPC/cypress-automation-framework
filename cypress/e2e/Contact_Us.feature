@@ -1,10 +1,9 @@
 @contact-us @regression
 Feature: WebdriverUniversity - Contact Us Page
 
-    Background: Start
-        Given I navigate to the WebdriverUniversity homepage
-        When I click on the contact us button
-
+    Background: Preconditions
+        Given I navigate to the Contact Us homepage
+        
     Scenario: Valid Contact Us Form submission
         When I type a first name
         And I type a last name
